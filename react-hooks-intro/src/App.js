@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function App() {
+  const [count, setCount] = useState(0);
+  function handleCount() {
+    setCount(count + 1);
+  }
   return (
-    <div>Hello world</div>
+    <button onClick={handleCount}>Count, clicked {count} times</button>
   );
 }
 
