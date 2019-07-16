@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 function App() {
   const [count, setCount] = useState(0);
   const [isOn, setIsOn] = useState(true);
+  const [mousePosition, setMousePosition] = useState({x: 0, y: 0 });
 
   function handleCount() {
     setCount(previousCount => previousCount + 1);
@@ -14,8 +15,20 @@ function App() {
   }
 
   useEffect(() => {
-    document.title = `useEffect runs ${count} times`
-  });
+    document.title = `useEffect runs ${count} times`;
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('mousemove');
+    }
+  }, [count]);
+
+  function handleMouseMove(event) {
+    setMousePosition({
+      x: event.pageX,
+      y: event.pageY,
+    });
+  }
 
   return (
     <>
@@ -33,6 +46,10 @@ function App() {
         alt="Flashlight"
         onClick={toggleLight}
       />
+      <h2>Mouse position</h2>
+      <div>
+        {JSON.stringify(mousePosition, null, 2)}
+      </div>
     </>
   );
 }
