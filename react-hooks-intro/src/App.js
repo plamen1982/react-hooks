@@ -4,22 +4,34 @@ function App() {
   const [count, setCount] = useState(0);
   const [isOn, setIsOn] = useState(true);
   const [mousePosition, setMousePosition] = useState({x: 0, y: 0 });
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   function handleCount() {
     setCount(previousCount => previousCount + 1);
   }
 
   function toggleLight() {
-
     setIsOn((prevIsOn) => !prevIsOn);
+  }
+
+  function handleOnlineStatus() {
+    setIsOnline(true);
+  }
+
+  function handleOfflineStatus() {
+    setIsOnline(false);
   }
 
   useEffect(() => {
     document.title = `useEffect runs ${count} times`;
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('online', handleOnlineStatus);
+    window.addEventListener('offline', handleOfflineStatus);
     
     return () => {
-      window.removeEventListener('mousemove');
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('online', handleOnlineStatus);
+      window.removeEventListener('offline', handleOfflineStatus);
     }
   }, [count]);
 
@@ -49,6 +61,9 @@ function App() {
       <h2>Mouse position</h2>
       <div>
         {JSON.stringify(mousePosition, null, 2)}
+      </div>
+      <div>
+        Netword status: {isOnline ? <p>Your network status is Online</p>: <p>Your network status in Offline</p>}
       </div>
     </>
   );
