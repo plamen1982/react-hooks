@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import TodosContext from '../context';
+import TodoForm from '../components/TodoForm';
 
 export default function TodoList() {
     const { state, dispatch } = useContext(TodosContext);
@@ -9,6 +10,7 @@ export default function TodoList() {
                     : `Nothing To Do!`;
     return (
         <div className="container mx-auto max-w-md text-center font-mono">
+            <TodoForm />
             <h1 className="text-bold">{title}</h1>
             <ul className="list=reset text-white p-o">
                 {state.todos.map(todo => (
