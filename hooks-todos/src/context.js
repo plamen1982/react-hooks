@@ -6,6 +6,7 @@ const todos = [
     { id: 3, text: 'Finish project', complete: true },
 ];
 
-const TodosContext = createContext({ todos });
+
+const TodosContext = createContext({ todos, currentTodo: {} });
 
 export default TodosContext;

@@ -1,12 +1,24 @@
-import React, { useState, useReducer, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TodosContext from '../context';
+
 export default function TodoForm() {
     const [todo, setTodo] = useState("");
-    const { state, dispatch } = useContext(TodosContext);
+    const { state: { currentTodo = {} }, dispatch } = useContext(TodosContext);
+
+    useEffect(() => {
+        if(currentTodo.text) {
+            setTodo(currentTodo.text);
+        }
+
+    }, [currentTodo.id]);
 
     function handleSumbit(event) {
         event.preventDefault();
-        dispatch({ type: "ADD_TODO", payload: todo });
+        if(currentTodo.text) {
+            dispatch({ type: "UPDATE_TODO", payload: todo })
+        } else {
+            dispatch({ type: "ADD_TODO", payload: todo });
+        }
         setTodo("");
     }
 
@@ -14,7 +26,7 @@ export default function TodoForm() {
         <form onSubmit={handleSumbit} className="flex justify-center p-5">
             <input 
                 onChange={event => setTodo(event.target.value)}
-                value={todo.text}
+                value={todo}
                 type="text"  
                 className="text-white bg-orange-600"
                 />
