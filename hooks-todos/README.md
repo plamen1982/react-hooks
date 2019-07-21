@@ -1,4 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##TODO
+    - add notifications for existing todos, empty todos
 
 ## Available Scripts
 
