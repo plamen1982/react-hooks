@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import TodosContext from '../context';
+import axios from 'axios';
+import uuidv4 from 'uuid/v4';
 
 export default function TodoForm() {
     const [todoText, setTodoText] = useState("");
@@ -13,12 +15,18 @@ export default function TodoForm() {
         }
     }, [currentTodo.id]);
 
-    function handleSumbit(event) {
+    async function handleSumbit(event) {
         event.preventDefault();
         if(currentTodo.text) {
             dispatch({ type: "UPDATE_TODO", payload: todoText })
         } else {
-            dispatch({ type: "ADD_TODO", payload: todoText });
+           const response = await axios.post('https://hooks-api-fulxelnqo.now.sh/todos', {
+                id: uuidv4,
+                text: todoText,
+                complete: false
+            });
+
+            dispatch({ type: "ADD_TODO", payload: response.data });
         }
         setTodoText("");
     }

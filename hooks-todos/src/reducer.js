@@ -21,8 +21,8 @@ export default function reducer(state, action) {
             }
 
         case "ADD_TODO":
-            const isTodoTextEmptyForAdd = isTodoTextEmpty(action.payload);
-            const isTodoTextExistAlreadyForAdd = isTodoTextExistAlready(action.payload);
+            const isTodoTextEmptyForAdd = isTodoTextEmpty(action.payload.text);
+            const isTodoTextExistAlreadyForAdd = isTodoTextExistAlready(action.payload.text);
 
              if(isTodoTextEmptyForAdd) {
                 return state;
@@ -31,14 +31,9 @@ export default function reducer(state, action) {
             if(isTodoTextExistAlreadyForAdd) {
                 return state;
             }
-
-            const newTodo = {
-                id: uuidv4(),
-                text: action.payload,
-                complete: false
-            };
             
-            const addedTodos = [...state.todos, newTodo];
+            const addedTodos = [...state.todos, action.payload];
+
             return {
                 ...state,
                 todos: addedTodos
