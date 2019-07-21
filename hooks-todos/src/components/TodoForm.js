@@ -18,7 +18,10 @@ export default function TodoForm() {
     async function handleSumbit(event) {
         event.preventDefault();
         if(currentTodo.text) {
-            dispatch({ type: "UPDATE_TODO", payload: todoText })
+            const response = await axios.patch(`https://hooks-api-fulxelnqo.now.sh/todos/${currentTodo.id}`, {
+                text: todoText
+            });
+            dispatch({ type: "UPDATE_TODO", payload: response.data })
         } else {
            const response = await axios.post('https://hooks-api-fulxelnqo.now.sh/todos', {
                 id: uuidv4,

@@ -40,17 +40,17 @@ export default function reducer(state, action) {
             };
 
         case "UPDATE_TODO": 
-            const isTodoTextEmptyForUpdate = isTodoTextEmpty(action.payload);
-            const isTodoTextExistAlreadyForUpdate = isTodoTextExistAlready(action.payload);
+            // const isTodoTextEmptyForUpdate = isTodoTextEmpty(action.payload);
+            // const isTodoTextExistAlreadyForUpdate = isTodoTextExistAlready(action.payload);
 
-            if(isTodoTextEmptyForUpdate) {
-                return state;
-            }
+            // if(isTodoTextEmptyForUpdate) {
+            //     return state;
+            // }
 
-            if(isTodoTextExistAlreadyForUpdate) {
-                return state;
-            }
-            const updatedTodo = { ...state.currentTodo, text: action.payload }
+            // if(isTodoTextExistAlreadyForUpdate) {
+            //     return state;
+            // }
+            const updatedTodo = { ...action.payload }
             const updatedTodoIndex = state.todos.findIndex(
                 todo => todo.id === state.currentTodo.id
             );
