@@ -20,7 +20,13 @@ export default function TodoList() {
                     >
                         
                         <span
-                            onDoubleClick={() => dispatch({ type: "TOOGLE_TODO", payload: todo })}
+                            onDoubleClick={async () => {
+                                const response = await axios.patch(`https://hooks-api-fulxelnqo.now.sh/todos/${todo.id}`, {
+                                    complete: !todo.complete
+                                });
+
+                                dispatch({ type: "TOOGLE_TODO", payload: response.data })}
+                            }
                             className={`flex-1 ml-12 cursor-pointer ${todo.complete && "line-through text-grey-900"}`}
                         >{todo.text}</span>
                         <button onClick={() => dispatch({ type: "SET_CURRENT_TODO", payload: todo })}>
