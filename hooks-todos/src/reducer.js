@@ -14,6 +14,11 @@ export default function reducer(state, action) {
     }
 
     switch (action.type) {
+        case "GET_TODOS": 
+            return {
+                ...state,
+                todos: action.payload
+            }
 
         case "ADD_TODO":
             const isTodoTextEmptyForAdd = isTodoTextEmpty(action.payload);
